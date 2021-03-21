@@ -5,13 +5,14 @@ import xbmcaddon
 import xbmcgui
 import xbmcplugin
 
-from lib.tmdbscraper.tmdb import TMDBMovieScraper
-from lib.tmdbscraper.fanarttv import get_details as get_fanarttv_artwork
-from lib.tmdbscraper.imdbratings import get_details as get_imdb_details
-from lib.tmdbscraper.traktratings import get_trakt_ratinginfo
-from scraper_datahelper import combine_scraped_details_info_and_ratings, \
+
+from libs.tmdb import TMDBMovieScraper
+from libs.fanarttv import get_details as get_fanarttv_artwork
+from libs.imdbratings import get_details as get_imdb_details
+from libs.traktratings import get_trakt_ratinginfo
+from libs.scraper_datahelper import combine_scraped_details_info_and_ratings, \
     combine_scraped_details_available_artwork, find_uniqueids_in_text, get_params
-from scraper_config import configure_scraped_details, PathSpecificSettings, \
+from libs.scraper_config import configure_scraped_details, PathSpecificSettings, \
     configure_tmdb_artwork, is_fanarttv_configured
 
 ADDON_SETTINGS = xbmcaddon.Addon()
@@ -23,7 +24,15 @@ def log(msg, level=xbmc.LOGDEBUG):
 def get_tmdb_scraper(settings):
     language = settings.getSettingString('language')
     certcountry = settings.getSettingString('tmdbcertcountry')
-    return TMDBMovieScraper(ADDON_SETTINGS, language, certcountry)
+   
+    trailer_settings = [False]*2
+    if settings.getSettingBool('trailer'):    
+        trailer_settings[0] = settings.getSettingBool('trailer_url_chk')        
+    
+    if trailer_settings[0]:          
+        trailer_settings[1] = settings.getSettingBool('trailer_log')
+
+    return TMDBMovieScraper(ADDON_SETTINGS, language, certcountry, trailer_settings)
 
 def search_for_movie(title, year, handle, settings):
     log("Find movie with title '{title}' from year '{year}'".format(title=title, year=year), xbmc.LOGINFO)

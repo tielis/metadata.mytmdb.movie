@@ -79,3 +79,12 @@ msgstr ""
 msgctxt "#30102"
 msgid "Enable artwork from Fanart.tv"
 msgstr ""
+
+msgctxt "#30103"
+msgid "Enable Trailer URL check (slower)"
+msgstr ""
+
+msgctxt "#30104"
+msgid "Enable Trailer log"
+msgstr ""
+

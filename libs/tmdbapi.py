@@ -19,7 +19,7 @@
 """Functions to interact with TMDb API."""
 
 from . import api_utils
-import xbmc
+import xbmc, unicodedata
 try:
     from typing import Optional, Text, Dict, List, Any  # pylint: disable=unused-import
     InfoType = Dict[Text, Any]  # pylint: disable=invalid-name
@@ -55,7 +55,7 @@ def search_movie(query, year=None, language=None):
     xbmc.log('using title of %s to find movie' % query, xbmc.LOGDEBUG)
     theurl = SEARCH_URL
     params = _set_params(None, language)
-    params['query'] = query
+    params['query'] = unicodedata.normalize('NFC',query)
     if year is not None:
         params['year'] = str(year)
     return api_utils.load_info(theurl, params=params)

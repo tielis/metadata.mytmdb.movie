@@ -20,15 +20,10 @@
 from __future__ import absolute_import, unicode_literals
 
 import json, xbmc
-# from pprint import pformat
-try: #PY2 / PY3
-    from urllib2 import Request, urlopen
-    from urllib2 import URLError
-    from urllib import urlencode
-except ImportError:
-    from urllib.request import Request, urlopen
-    from urllib.error import URLError
-    from urllib.parse import urlencode
+from urllib.request import Request, urlopen
+from urllib.error import URLError
+from urllib.parse import urlencode
+
 try:
     from typing import Text, Optional, Union, List, Dict, Any  # pylint: disable=unused-import
     InfoType = Dict[Text, Any]  # pylint: disable=invalid-name
