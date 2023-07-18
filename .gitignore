@@ -129,3 +129,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/.vs/metadata.mytmdb.tvshows/FileContentIndex
+/.vs/metadata.mytmdb.tvshows/v17
+/.vs
